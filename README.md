@@ -2,11 +2,11 @@
 
 This accelerator provides resources to get started with Video Analytics Solutions for Manfacturing. The goal of these sample is to showcase how to custom vision, video analytics at the edge for various manufacturing scenarios.
 
-- Social distance monitoring.
+- [Social distance monitoring](https://github.com/jomit/video-analytics-accelerator#social-distance-monitoring)
 
-- Defect detection.
+- Defect detection (Coming...)
 
-- Safety monitoring.
+- Safety monitoring (Coming...)
 
 ## Social distance monitoring
 
