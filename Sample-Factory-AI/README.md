@@ -1,5 +1,5 @@
-## Instructions to Test the Factory AI Vision solution
-#### Create Simulated IoT Edge Device
+# Instructions to Test the Factory AI Vision solution
+### Create Simulated IoT Edge Device
 
 Quickstart [here](https://docs.microsoft.com/en-us/azure/iot-edge/quickstart-linux)
 
@@ -29,16 +29,16 @@ Quickstart [here](https://docs.microsoft.com/en-us/azure/iot-edge/quickstart-lin
 
 - `sudo iotedge list`
 
-#### Open Ports for Factory AI
+### Open Ports for Factory AI
 
 - `az network nsg rule create -g iotedgevision --nsg-name <nsg-name> -n AllowEdgeVisionDashboard --priority 100 --access Allow --direction Inbound --destination-port-ranges 8080 5000`
 
 
-#### Create Custom Vision Resource
+### Create Custom Vision Resource
 
 - Create new [customvision.ai](https://www.customvision.ai/) resource or using existing one and copy the EndPoint and Key from [here](https://www.customvision.ai/projects#/settings)
 
-#### Deploy Factory AI Edge Modules
+### Deploy Factory AI Edge Modules
 
 - Replace these values in `deployment.amd64.json`. See `deployment.sample.json` for updated file.
     - `<Training Endpoint>` = Custom vision EndPoint url
@@ -51,7 +51,7 @@ Quickstart [here](https://docs.microsoft.com/en-us/azure/iot-edge/quickstart-lin
 - Browse the Factory AI Dashboard at [`http://factoryaivm.westus2.cloudapp.azure.com:8080/`](http://factoryaivm.westus2.cloudapp.azure.com:8080/)
 
 
-#### Use your RTSP stream from IP Camera or deploy a Simulated RTSP Server as below
+### Use your RTSP stream from IP Camera or deploy a Simulated RTSP Server as below
 
 - If you want to build your custom docker image see instructions [here](rtspsim-live555/readme.md). And replace the image name below with your name.
 
@@ -72,5 +72,3 @@ Quickstart [here](https://docs.microsoft.com/en-us/azure/iot-edge/quickstart-lin
 ## Resources
 
 - [Custom vision + Azure IoT Edge for Factory AI](https://github.com/Azure-Samples/azure-intelligent-edge-patterns/tree/master/factory-ai-vision#custom-vision--azure-iot-edge-for-factory-ai)
-
-
