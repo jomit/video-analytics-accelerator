@@ -1,3 +1,4 @@
+## Instructions to Test the Factory AI Vision solution
 #### Create Simulated IoT Edge Device
 
 Quickstart [here](https://docs.microsoft.com/en-us/azure/iot-edge/quickstart-linux)
@@ -49,22 +50,27 @@ Quickstart [here](https://docs.microsoft.com/en-us/azure/iot-edge/quickstart-lin
 
 - Browse the Factory AI Dashboard at [`http://factoryaivm.westus2.cloudapp.azure.com:8080/`](http://factoryaivm.westus2.cloudapp.azure.com:8080/)
 
-#### (Optional) Deploy Simulated RTSP Server
+
+#### Use your RTSP stream from IP Camera or deploy a Simulated RTSP Server as below
 
 - If you want to build your custom docker image see instructions [here](rtspsim-live555/readme.md). And replace the image name below with your name.
 
 - `az network nsg rule create -g iotedgevision --nsg-name <nsg-name> -n Live555 --priority 101 --access Allow --direction Inbound --destination-port-ranges 554`
 
+- Copy `rtspsim-live555\climbinggears.mkv` to the VM
+
 - `ssh jomit@factoryaivm.westus2.cloudapp.azure.com`
 
-- Use default setting and the built in mkv file
-    - `docker run --rm -it -p 554:554 --name live555 jomit/live555:latest`
-    - Test RTSP stream at `rtsp://factoryaivm.westus2.cloudapp.azure.com:554/media/tentvideo.mkv`
+- Map the local folder with the mkv file (example: `/home/jomit/videos`) to the container and start the server
 
-- Map local drive to a container to upload your custom mkv media files
-    - `docker run --rm -it -p 554:554 -v <local directory path>:/live/mediaServer/media --name live555 jomit/live555:latest`
-    - Test RTSP stream at `rtsp://factoryaivm.westus2.cloudapp.azure.com:554/media/<your media file name>`
+    - `sudo docker run --rm -it -p 554:554 -v /home/jomit/videos:/live/mediaServer/media --name live555 jomit/live555:latest`
 
-- 
+- Test RTSP stream at `rtsp://factoryaivm.westus2.cloudapp.azure.com:554/media/climbinggears.mkv`
+
+- Add the Camera in Factory AI Dashboard and test it
+
+## Resources
+
+- [Custom vision + Azure IoT Edge for Factory AI](https://github.com/Azure-Samples/azure-intelligent-edge-patterns/tree/master/factory-ai-vision#custom-vision--azure-iot-edge-for-factory-ai)
 
 

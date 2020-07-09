@@ -18,8 +18,6 @@ RUN apt-get update && \
 
 WORKDIR /live/mediaServer
 
-ADD ./tentvideo.mkv /live/mediaServer/media/
-
 EXPOSE 554
 
 ENTRYPOINT [ "./live555MediaServer" ]
