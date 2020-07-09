@@ -47,13 +47,24 @@ Quickstart [here](https://docs.microsoft.com/en-us/azure/iot-edge/quickstart-lin
 
 - `az iot edge set-modules --device-id visiondevice1 --hub-name jomitvisionhub --content deployment.amd64.json`
 
+- Browse the Factory AI Dashboard at [`http://factoryaivm.westus2.cloudapp.azure.com:8080/`](http://factoryaivm.westus2.cloudapp.azure.com:8080/)
 
-#### Deploy Simulated RTSP Server
+#### (Optional) Deploy Simulated RTSP Server
+
+- If you want to build your custom docker image see instructions [here](rtspsim-live555/readme.md). And replace the image name below with your name.
 
 - `az network nsg rule create -g iotedgevision --nsg-name <nsg-name> -n Live555 --priority 101 --access Allow --direction Inbound --destination-port-ranges 554`
 
 - `ssh jomit@factoryaivm.westus2.cloudapp.azure.com`
 
-- `docker run --rm -it -p 554:554 --name live555 jomit/live555:latest`
+- Use default setting and the built in mkv file
+    - `docker run --rm -it -p 554:554 --name live555 jomit/live555:latest`
+    - Test RTSP stream at `rtsp://factoryaivm.westus2.cloudapp.azure.com:554/media/tentvideo.mkv`
 
-- Use VLC to browse the RTSP stream at `rtsp://<IoT-Edge-VM-IP>:554/media/tentvideo.mkv`
+- Map local drive to a container to upload your custom mkv media files
+    - `docker run --rm -it -p 554:554 -v <local directory path>:/live/mediaServer/media --name live555 jomit/live555:latest`
+    - Test RTSP stream at `rtsp://factoryaivm.westus2.cloudapp.azure.com:554/media/<your media file name>`
+
+- 
+
+
