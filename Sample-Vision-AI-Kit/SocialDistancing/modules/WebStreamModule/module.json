@@ -1,0 +1,15 @@
+{
+    "$schema-version": "0.0.1",
+    "description": "Hosts a website to retransmit an MPEG4, RTSP stream to a browser over web sockets.",
+    "image": {
+        "repository": "$CONTAINER_REGISTRY_NAME/webstreammodule",
+        "tag": {
+            "version": "0.0.20",
+            "platforms": {
+                "arm32v7": "./Dockerfile.arm32v7"
+            }
+        },
+        "buildOptions": []
+    },
+    "language": "javascript"
+}
