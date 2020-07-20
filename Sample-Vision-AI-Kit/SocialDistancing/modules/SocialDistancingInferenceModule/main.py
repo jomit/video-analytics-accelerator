@@ -21,6 +21,7 @@ from . iot_hub_manager import IotHubManager
 from iotccsdk import CameraClient
 from iothub_client import IoTHubTransportProvider, IoTHubError
 import time
+import json
 
 # Choose HTTP, AMQP or MQTT as transport protocol.  Currently only MQTT is supported.
 IOT_HUB_PROTOCOL = IoTHubTransportProvider.MQTT
@@ -60,16 +61,57 @@ def print_inference(result=None, hub_manager=None, last_sent_time=time.time()):
             or len(result.objects) == 0):
         return last_sent_time
 
+    print("Here are all the objects:")
+    personInfo = []
     for inf_obj in result.objects:
-        print("Found result object")
         inference = Inference(inf_obj)
         if (properties.model_properties.is_object_of_interest(inference.label)):
             json_message = inference.to_json()
             iot_hub_manager.send_message_to_upstream(json_message)
             print(json_message)
             last_sent_time = time.time()
+
+        if inference.label == "person":
+            center = [int(inference.position_x + inference.width / 2), int(inference.position_y + inference.height / 2)]
+            personInfo.append([inference.width, inference.height, center])
+
+    if len(personInfo) > 1:
+        result = calculateDistanceRiskLevel(personInfo)
+        print(result)
+        distanceMessage = {"type": "distanceAlert", "riskLevel" : result}
+        iot_hub_manager.send_message_to_upstream(json.dumps(distanceMessage))
+
     return last_sent_time
 
+def calculateDistanceRiskLevel(personInfo):
+    print("Calculating distance")
+    print(personInfo)
+    # find distance between first 2 persons only for now
+    p1 = personInfo[0]
+    p2 = personInfo[1]
+    d = ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
+    w = (p1[0] + p2[0]) / 2
+    h = (p1[1] + p2[1]) / 2
+    _ = 0
+    try:
+        _ = (p2[2][1] - p1[2][1]) / (p2[2][0] - p1[2][0])
+    except ZeroDivisionError:
+        _ = 1.633123935319537e+16
+    ve = abs(_ / ((1 + _ ** 2) ** 0.5))
+    ho = abs(1 / ((1 + _ ** 2) ** 0.5))
+    d_hor = ho * d
+    d_ver = ve * d
+    vc_calib_hor = w * 1.3
+    vc_calib_ver = h * 0.4 * 0.8 # the last one is the angle
+    c_calib_hor = w * 1.7
+    c_calib_ver = h * 0.2 * 0.8 # the last one is the angle
+    if 0 < d_hor < vc_calib_hor and 0 < d_ver < vc_calib_ver:
+        return "high" #1
+    elif 0 < d_hor < c_calib_hor and 0 < d_ver < c_calib_ver:
+        return "medium" #2
+    else:
+        return "low" #0
+    
 
 def main(protocol):
     global ipc_provider
@@ -107,6 +149,7 @@ def main(protocol):
                                 for result in results:
                                     last_time = print_inference(
                                         result, iot_hub_manager, last_time)
+
                     except EOFError:
                         print("EOFError. Current VAM running state is %s." %
                               camera_client.vam_running)
