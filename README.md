@@ -2,28 +2,19 @@
 
 This accelerator provides resources to get started with Video Analytics Solutions for Manfacturing. The goal of these sample is to showcase how to custom vision, video analytics at the edge for various manufacturing scenarios.
 
-- [Social distance monitoring](https://github.com/jomit/video-analytics-accelerator#social-distance-monitoring)
+- [Social distance monitoring using Vision AI Dev Kit](https://github.com/jomit/video-analytics-accelerator/blob/master/Vision-AI-DevKit/SocialDistancing/README.md)
 
 - Defect detection (Coming...)
 
 - Safety monitoring (Coming...)
 
-## Social distance monitoring
-
-<Architecture image here...>
-
-### Getting Started Guide
-
-#### Test Base Model Locally
-
-- Create new conda environment using the `Social-Distancing\environment.yml`
-
-- Download the yolov3 .cfg and .weights files from [here](https://pjreddie.com/darknet/yolo/)
-
-- Run `python sdd_gui.py` in the newly created environment
-
-- Click Start.
 
 ## Resources
 
-- [Original base code and model](https://github.com/nadav01/sdd)
+- [Vision AI Dev Kit](https://azure.github.io/Vision-AI-DevKit-Pages/)
+
+- [Custom vision + Azure IoT Edge for Factory AI](https://github.com/Azure-Samples/azure-intelligent-edge-patterns/tree/master/factory-ai-vision#custom-vision--azure-iot-edge-for-factory-ai)
+
+- [Live Vide Analytics (LVA) on IoT Edge](https://docs.microsoft.com/en-us/azure/media-services/live-video-analytics-edge/deploy-iot-edge-device)
+
+- [Azure Intelligent Edge Patterns](https://github.com/Azure-Samples/azure-intelligent-edge-patterns)
