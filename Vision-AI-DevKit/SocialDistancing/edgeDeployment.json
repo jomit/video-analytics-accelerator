@@ -78,8 +78,8 @@
     "SocialDistancingInferenceModule": {
       "properties.desired": {
         "ModelZipUrl": "",
-        "TimeBetweenMessagesInSeconds": 12,
-        "ObjectsOfInterest": "[\"ALL\"]",
+        "TimeBetweenMessagesInSeconds": 5,
+        "ObjectsOfInterest": "[\"person\"]",
         "ShowVideoOverlay": true,
         "Bitrate": "1.5Mbps",
         "Resolution": "1080P",

@@ -2,7 +2,7 @@
 
 This accelerator provides resources to get started with Video Analytics Solutions for Manfacturing. The goal of these sample is to showcase how to custom vision, video analytics at the edge for various manufacturing scenarios.
 
-- [Social distance monitoring using Vision AI Dev Kit](https://github.com/jomit/video-analytics-accelerator/blob/master/Vision-AI-DevKit/SocialDistancing/README.md)
+- [Social distance monitoring using Vision AI Dev Kit](https://github.com/jomit/video-analytics-accelerator/blob/master/Vision-AI-DevKit/SocialDistancing)
 
 - Defect detection (Coming...)
 
